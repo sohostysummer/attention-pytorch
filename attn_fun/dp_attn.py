@@ -11,8 +11,8 @@ class ScaledDotProductAttention(nn.Module):
     def forward(self, query, key, value, attn_mask=None):
         """
         Args:
-            query: (N, n, d)
-            key: (N, m, d)
+            query: (N, n, d_k)
+            key: (N, m, d_k)
             value: (N, m, d_v)
             attn_mask: broadcastable with (N, n, m)
         """
