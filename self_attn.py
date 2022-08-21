@@ -1,4 +1,3 @@
-import torch
 import torch.nn as nn
 from attn_fun.dp_attn import ScaledDotProductAttention
 
