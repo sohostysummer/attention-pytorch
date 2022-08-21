@@ -17,7 +17,7 @@ class AdditiveAttention(nn.Module):
             query: (N, n, d_q)
             key: (N, m, d_k)
             value: (N, m, d_v)
-            attn_mask: broadcastable with (N, n, m)
+            attn_mask: (N, n, m)
         """
         query, key = self.W_q(query).unsqueeze(2), self.W_k(key).unsqueeze(1)
         scores = self.W_v(torch.tanh(query + key)).squeeze()  # (N, n, m)

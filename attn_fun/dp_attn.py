@@ -14,7 +14,7 @@ class ScaledDotProductAttention(nn.Module):
             query: (N, n, d_k)
             key: (N, m, d_k)
             value: (N, m, d_v)
-            attn_mask: broadcastable with (N, n, m)
+            attn_mask: (N, n, m)
         """
         assert query.size(2) == key.size(2)
         scores = query @ key.transpose(1, 2) / math.sqrt(query.size(2))

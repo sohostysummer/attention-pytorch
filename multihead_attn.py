@@ -33,3 +33,23 @@ class MultiHeadAttention(nn.Module):
         output = self.attn(query, key, value, attn_mask)
         output = output.reshape(self.num_heads, N, n, self.hidden_size).permute(1, 2, 0, 3).reshape(N, n, -1)
         return self.W_o(output)
+
+
+class MultiHeadSelfAttention(nn.Module):
+    def __init__(self, d_model, num_heads, bias=True, dropout=0) -> None:
+        super().__init__()
+        self.attn = MultiHeadAttention(d_model, num_heads, bias=bias, dropout=dropout)
+        self.W_q = nn.Linear(d_model, d_model, bias=False)
+        self.W_k = nn.Linear(d_model, d_model, bias=False)
+        self.W_v = nn.Linear(d_model, d_model, bias=False)
+
+    def forward(self, X, attn_mask=None):
+        """
+        Args:
+            X: (N, L, d_model)
+            attn_mask: (N, n, m)
+        """
+        Q = self.W_q(X)
+        K = self.W_k(X)
+        V = self.W_v(X)
+        return self.attn(Q, K, V, attn_mask)

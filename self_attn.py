@@ -15,7 +15,7 @@ class SelfAttention(nn.Module):
         """
         Args:
             X: input sequence, shape: (N, L, embed_dim)
-            attn_mask: broadcastable with (N, L, L)
+            attn_mask: (N, L, L)
         """
         Q = self.W_q(X)  # (N, L, key_size)
         K = self.W_k(X)  # (N, L, key_size)
